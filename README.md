@@ -123,11 +123,12 @@ This project demonstrates:
 
 ---
 
-## 📸 Preview (Optional)
+## 📸 Preview
 
 ![image](https://github.com/user-attachments/assets/27d50972-b2c9-4b1f-9eb8-3bf56147ca6b)
 
-> Add screenshots here of the dashboard, folders, Photoprism interface, or Tailscale dashboard to make it visual.
+![image](https://github.com/user-attachments/assets/2d111b26-e07e-4d72-b438-023948c71183)
+
 
 ---
 
