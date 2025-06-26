@@ -25,21 +25,14 @@ Este projeto demonstra uma infraestrutura robusta de auto-hospedagem para gerenc
 
 ---
 
-## 📁 Estrutura do Projeto
-
-A estrutura do repositório reflete a organização dos serviços Docker Compose:
-
-
----
-
 ## 🛠️ Configuração e Implantação
 
 Para configurar e iniciar a solução, siga os passos abaixo. Certifique-se de que o Docker e o Docker Compose estejam instalados no seu servidor Linux.
 
 1.  **Clone o Repositório:**
     ```bash
-    git clone [https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git](https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git)
-    cd SEU_REPOSITORIO # Ou a pasta raiz que você criou (ex: mycloud)
+    git clone https://github.com/ellostu/selfhosting-nextcloud-photoprism.git
+    cd selfhosting-nextcloud-photoprism
     ```
 
 2.  **Variáveis de Ambiente:**
