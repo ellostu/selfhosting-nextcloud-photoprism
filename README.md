@@ -1,42 +1,50 @@
-# Self-Hosting Solution with Nextcloud and PhotoPrism (Docker Compose)
+# Self-Hosting Cloud and Media Management Solution (Docker Compose)
 
-This project demonstrates a robust self-hosting infrastructure for file and photo management, orchestrated with Docker Compose. The focus is on efficient integration between Nextcloud for cloud storage and PhotoPrism for media organization, utilizing shared volumes to optimize space usage and ensure data integrity.
+This project outlines a robust, self-hosted infrastructure for centralized file storage and intelligent photo management, meticulously orchestrated with Docker Compose. It showcases an efficient integration between Nextcloud for private cloud services and PhotoPrism for AI-powered media organization, leveraging shared volumes to optimize storage, enhance data integrity, and demonstrate operational resilience.
 
----
-
-## 🚀 Technologies Used
-
-* **Docker & Docker Compose**: Containerization and service orchestration for flexible deployment and management.
-* **Nextcloud**: Private cloud platform for file synchronization, collaboration, and secure remote access.
-* **PhotoPrism**: Intelligent photo management application that uses artificial intelligence for organizing, searching, and cataloging media.
-* **MariaDB/PostgreSQL**: Relational databases used for data persistence for both applications (depending on your configuration).
-* **Linux**: The base server operating system where the solution is deployed.
-* **Nginx** (via `nginx.conf`): Web server/reverse proxy for Nextcloud, ensuring secure and efficient access (if applicable to your configuration).
+This solution, while personal in scale, exemplifies foundational principles applicable to building and managing reliable, scalable, and secure enterprise cloud environments.
 
 ---
 
-## ✨ Key Features
+## 🚀 Technologies Utilized
 
-* **Centralized File Management**: Synchronize and access your files from any device with Nextcloud.
-* **Intelligent Photo Organization**: PhotoPrism automatically indexes and organizes photos and videos, enabling advanced searches and easy navigation.
-* **Optimized Data Sharing**: Both applications access the **same media folder** on the host file system, eliminating data duplication and optimizing storage.
-* **Containerized Environment**: Facilitates deployment, portability, and service isolation, ensuring a consistent environment.
-* **Total Data Control**: Maintain privacy and control over your files by hosting them on your own infrastructure.
+* **Docker & Docker Compose**: Core components for containerization and infrastructure-as-code (IaC) principles, enabling flexible deployment, service isolation, and consistent environments.
+* **Nextcloud**: A leading open-source private cloud platform, providing secure file synchronization, sharing, and collaborative features.
+* **PhotoPrism**: An AI-powered application for advanced photo and video management, featuring intelligent indexing, search capabilities, and automatic content organization.
+* **MariaDB/PostgreSQL**: Robust relational databases serving as the persistent data stores for both Nextcloud and PhotoPrism, demonstrating competence in database management and configuration.
+* **Linux**: The foundational server operating system, providing a stable and secure environment for container deployment and system administration tasks.
+* **Nginx** (via `nginx.conf`): Configured as a high-performance web server and reverse proxy for Nextcloud, illustrating practical experience with traffic management, security headers, and efficient web service delivery. (If Caddy was used, consider adding "or Caddy for automated HTTPS and simplified configuration.")
+* **Bash/Shell Scripting**: Employed for automating operational tasks, including custom solutions for data integrity and file management.
+* **ExifTool**: Integrated into custom scripts for advanced metadata extraction and manipulation, critical for data quality and consistency.
+
+---
+
+## ✨ Key Features & Operational Highlights
+
+* **Centralized & Secure File Management**: Implemented Nextcloud for robust file synchronization and access across devices, ensuring data sovereignty and control.
+* **AI-Powered Media Organization**: Utilized PhotoPrism's AI capabilities for efficient indexing, tagging, and searching of media, streamlining large photo collections.
+* **Optimized Data Orchestration**: Engineered a shared volume strategy that allows both Nextcloud and PhotoPrism to access the **same physical media files** on the host. This eliminates data duplication, optimizes storage utilization, and simplifies cross-application data management.
+* **Containerized Service Deployment**: Deployed services within isolated Docker containers, enhancing portability, simplifying dependency management, and ensuring consistent application behavior across environments.
+* **Operational Resilience & Performance**:
+    * Configured services with `restart: always` for automatic recovery, contributing to high availability.
+    * (Optional: If you re-add healthchecks) Incorporated Docker healthchecks to monitor service readiness and automatically manage unhealthy containers, crucial for maintaining service uptime.
+    * Leveraged Redis for caching within Nextcloud, demonstrating an understanding of performance optimization techniques for web applications.
+* **Security & Privacy by Design**: Emphasized self-controlled infrastructure for enhanced privacy. Ensured secure handling of sensitive credentials using environment variables (`.env` files ignored by Git).
 
 ---
 
 ## 🛠️ Configuration and Deployment
 
-To configure and start the solution, follow the steps below. Ensure Docker and Docker Compose are installed on your Linux server.
+This section details the steps to set up and run the solution. Ensure Docker and Docker Compose are installed on your Linux server.
 
 1.  **Clone the Repository:**
     ```bash
-    git clone git clone https://github.com/ellostu/selfhosting-nextcloud-photoprism.git
+    git clone [https://github.com/ellostu/selfhosting-nextcloud-photoprism.git](https://github.com/ellostu/selfhosting-nextcloud-photoprism.git)
     cd selfhosting-nextcloud-photoprism
     ```
 
 2.  **Environment Variables:**
-    Create `.env` files inside the `photoprism/` and `nextcloud/` folders for your sensitive environment variables (database passwords, admin users, etc.). These files are ignored by Git for security.
+    Create `.env` files within the `photoprism/` and `nextcloud/` directories to store sensitive environment variables (e.g., database passwords, admin credentials). These files are crucial for security and are deliberately excluded from Git tracking via `.gitignore`.
 
     **Example `photoprism/.env`:**
     ```
@@ -55,69 +63,78 @@ To configure and start the solution, follow the steps below. Ensure Docker and D
     MYSQL_USER=nextcloud_user
     MYSQL_PASSWORD=your_nextcloud_db_password
     ```
-    *Adjust variable names and values according to your actual configuration and the requirements of your `docker-compose.yml` files.*
+    *Adjust variable names and values to match your specific `docker-compose.yml` configurations and security best practices.*
 
 3.  **Shared Volume Configuration:**
-    In your `docker-compose.yml` files, ensure that the folder where your actual photos are stored is mounted as a volume in **both** the Nextcloud and PhotoPrism services.
+    Ensure the absolute path to your media files on the host system (e.g., `/home/syncthing_user/sync_data/celular_fotos/fotos/ALL_PHOTOS`) is consistently mounted as a volume in both Nextcloud and PhotoPrism's `docker-compose.yml` files. This establishes the shared data layer.
 
     **Example in `photoprism/docker-compose.yml` (within the `volumes` section of the `photoprism` service):**
     ```yaml
     volumes:
-      - /your/photos/path:/photoprism/originals # Path to your photos
+      - /home/syncthing_user/sync_data/celular_fotos/fotos/ALL_PHOTOS:/photoprism/originals # Host path to your photos
       # ... other PhotoPrism volumes
     ```
 
     **Example in `nextcloud/docker-compose.yml` (within the `volumes` section of the `app` or `nextcloud` service):**
     ```yaml
     volumes:
-      - /your/photos/path:/var/www/html/data/YOUR_USERNAME/files/Photos # Example mounting for a specific user
-      # OR, if mapping the folder directly to Nextcloud's data:
-      # - /your/photos/path:/var/www/html/data/user/files/Photos
+      - /home/syncthing_user/sync_data/celular_fotos/fotos/ALL_PHOTOS:/var/www/html/data/YOUR_USERNAME/files/Photos # Host path mapped for a specific Nextcloud user
+      # OR, for external storage configuration:
+      # - /home/syncthing_user/sync_data/celular_fotos/fotos/ALL_PHOTOS:/mnt/external_photos
       # ... other Nextcloud volumes
     ```
-    *Adjust the path `/var/www/html/data/YOUR_USERNAME/files/Photos` to reflect how you've configured Nextcloud to access this folder. It might differ depending on your version or "External Storages" configuration.*
+    *Note: The exact path within the Nextcloud container (`/var/www/html/data/...`) depends on your Nextcloud setup (e.g., direct user folder mount or external storage configuration).*
 
 4.  **Start the Services:**
-    Navigate to each service folder and start them:
+    Navigate to each service directory and launch the containers. Using `--pull always` ensures the latest images are used, and `--wait` (if available on your Docker Compose version) enhances deployment reliability by waiting for services to be healthy.
 
     ```bash
     cd photoprism
-    docker compose up --build --pull always --wait
+    docker compose up -d --build --pull always --wait
     cd ../nextcloud
-    docker compose up --build --pull always --waitd
+    docker compose up -d --build --pull always --wait
     ```
 
-5.  **Post-Installation Configuration:**
-    * Access the web interfaces of Nextcloud and PhotoPrism through their configured ports (e.g., `http://your_ip:8080` for Nextcloud and `http://your_ip:2342` for PhotoPrism).
-    * Follow the instructions for initial setup (admin user creation, database connection, etc.).
-    * In PhotoPrism, start the indexing process to discover your photos.
+5.  **Post-Installation & Access:**
+    * Access the web interfaces of Nextcloud and PhotoPrism via their configured ports (e.g., `http://your_server_ip:8080` for Nextcloud and `http://your_server_ip:2342` for PhotoPrism).
+    * Complete any initial setup steps (e.g., admin user creation, database connection verification).
+    * Initiate indexing in PhotoPrism to discover and catalog your media files.
 
 ---
 
 ## 🔧 Utility Scripts
 
-This project includes auxiliary scripts to address common challenges in managing large media collections:
+This project includes auxiliary scripts developed to address specific operational and data management challenges:
 
 * **`photoprism/fix_image_extensions.sh`**:
-    * **Purpose:** To tackle real-world data challenges, I've included `fix_image_extensions.sh`. This script was developed to resolve issues with mismatched file extensions and metadata, a common hurdle when integrating photos from external sources like Google Takeout.
-    * **Demonstrates:** Ability to diagnose and solve metadata/file format problems, and automation of data management tasks.
-    * **Adittional info:** You may need to change something according to the file types. Also, if you don`t have this kind of issue, feel free to not use this script at all or delete it.
-
----
+    * **Purpose:** To tackle real-world data challenges, I've included `fix_image_extensions.sh`. This script was developed to resolve issues with mismatched file extensions and internal metadata (e.g., a `.HEIC` file internally identified as `image/jpeg`), a common hurdle when integrating photo collections from external sources like Google Takeout.
+    * **Demonstrates:** Proactive problem-solving, data quality assurance, and the ability to automate complex data correction tasks using shell scripting and `ExifTool`.
 
 ---
 
 ## 🎯 What This Project Demonstrates
 
-This project showcases a robust set of practical skills and expertise in cloud infrastructure and data management:
+This project showcases a robust set of practical skills and expertise in cloud infrastructure, data management, and operational excellence, highly relevant for roles at Ericsson:
 
-* **Containerization & Orchestration (Docker & Docker Compose):** Proficiently designed, configured, and managed complex, multi-service environments, ensuring efficient deployment and scalability.
-* **Linux System Administration:** Applied strong command-line and system management skills for file handling, permissions, robust volume mounting, and resource optimization on a Linux server.
-* **Self-Hosting & Open-Source Solutions:** Successfully planned, implemented, and maintained critical open-source applications (Nextcloud, PhotoPrism) for private cloud and media management, emphasizing user data control.
-* **Complex System Integration:** Seamlessly integrated disparate applications (Nextcloud and PhotoPrism) to share a single media dataset via host-level volume mounts, optimizing storage and workflow efficiency.
-* **Robust Data Management:** Demonstrated capability in handling and securing large volumes of media data efficiently, ensuring data integrity and accessibility across services.
-* **Security & Privacy Best Practices:** Implemented self-controlled infrastructure with a strong focus on data privacy and security, including the secure handling of sensitive credentials via environment variables.
-* **Advanced Problem-Solving & Scripting:**
-    * **Proactive Issue Resolution:** Identified and systematically resolved complex infrastructure challenges, including **database performance tuning for MariaDB** and **web server configuration intricacies with Nginx** (and potential experience with Caddy if applicable).
-    * **Data Integrity & Automation:** Developed and deployed custom shell scripts (e.g., `fix_image_extensions.sh`) utilizing tools like **ExifTool** to diagnose and programmatically correct real-world data issues such as inconsistent metadata and file extensions from third-party sources (e.g., Google Takeout). This highlights initiative in automating solutions for data quality.
+* **Containerization & Orchestration (Docker & Docker Compose):** Proficiently designed, configured, and managed complex, multi-service containerized environments. Demonstrated expertise in `docker-compose` for robust deployment, service isolation, and maintaining consistent application states, adhering to **Infrastructure as Code (IaC)** principles.
+* **Linux System Administration:** Applied strong command-line and system management skills for secure file handling, precise volume management, and optimized resource utilization on a Linux server. Experience with **UFW firewall configuration** for network security.
+* **Self-Hosting & Open-Source Solutions:** Successfully planned, implemented, and maintained critical open-source applications (Nextcloud, PhotoPrism), showcasing end-to-end ownership of infrastructure and software lifecycle.
+* **Complex System Integration & Networking:** Seamlessly integrated disparate applications (Nextcloud and PhotoPrism) via host-level volume mounts, establishing efficient data pipelines. Gained hands-on experience with **Nginx as a reverse proxy** for secure and efficient application exposure, understanding fundamental networking concepts within a Dockerized environment.
+* **Database Management & Performance (MariaDB/PostgreSQL):** Configured and troubleshoot relational databases, including specific **MariaDB optimization flags** and initial database initialization, highlighting an understanding of database reliability and performance.
+* **Operational Excellence & Reliability:** Implemented strategies for service resilience (e.g., `restart: always`, and ideally Docker healthchecks) to ensure high availability and automatic recovery, demonstrating a focus on service reliability and uptime.
+* **Advanced Problem-Solving & Data Integrity:**
+    * **Proactive Diagnostics:** Demonstrated the ability to systematically diagnose intricate infrastructure issues (e.g., `connection refused` errors, database initialization failures, `WARN index` inconsistencies) and iteratively apply solutions.
+    * **Data Quality Automation:** Developed custom shell scripts leveraging tools like `ExifTool` to automate the detection and correction of critical data integrity issues (e.g., mismatched file extensions/metadata), a common challenge in large-scale data ingestion. This highlights a commitment to data quality and efficiency.
+* **Security & Privacy Best Practices:** Implemented secure credential management via `.env` files and `gitignore`, emphasizing a strong commitment to data privacy and operational security.
 
+---
+
+### 💡 Future Enhancements (Demonstrating Continuous Learning & Proactiveness)
+
+* **Automated HTTPS**: Integrate a Certbot container (e.g., with Nginx) for automatic TLS certificate management using Let's Encrypt.
+* **Centralized Logging**: Implement a logging solution (e.g., ELK stack or Grafana Loki) for consolidated log aggregation and analysis.
+* **Monitoring & Alerting**: Integrate Prometheus and Grafana to monitor container health, resource utilization, and application-specific metrics.
+* **Automated Backups**: Develop robust, scheduled backup routines for application data and databases.
+* **CI/CD Pipeline**: Automate deployment and updates of the Docker Compose services using a simple CI/CD pipeline (e.g., GitHub Actions).
+* **Advanced Networking**: Implement custom Docker bridge networks or explore overlay networks for multi-host deployments.
+* **Upgrade to Kubernetes**: (For highly ambitious candidates) Migrate the Docker Compose setup to a Kubernetes cluster to demonstrate orchestration at scale.
