@@ -8,13 +8,13 @@ services:
     ports:
       - "2342:2342"
     environment:
-      PHOTOPRISM_ADMIN_USER: bern
-      PHOTOPRISM_ADMIN_PASSWORD: ${PHOTOPRISM_ADMIN_PASSWORD}
+      PHOTOPRISM_ADMIN_USER: ${PHOTOPRISM_ADMIN_USER} # Definido na sua .env
+      PHOTOPRISM_ADMIN_PASSWORD: ${PHOTOPRISM_ADMIN_PASSWORD} # Definido na sua .env
       PHOTOPRISM_DATABASE_DRIVER: mysql
       PHOTOPRISM_DATABASE_DSN: photoprism:${DB_PASSWORD}@tcp(database:3306)/photoprism?charset=utf8mb4&parseTime=true
       PHOTOPRISM_HTTP_COMPRESSION: "true"
       PHOTOPRISM_DETECT_NSFW: "false"
-      PHOTOPRISM_INDEX_SCHEDULE: "@every 10m" # <- Mude de "@every 1h" para isso
+      PHOTOPRISM_INDEX_SCHEDULE: "@every 10m" # <- index rate
       # Se você também quiser o scan mais frequente, pode adicionar:
       PHOTOPRISM_SCAN_INTERVAL: "600" # 600 segundos = 10 minutos
 
