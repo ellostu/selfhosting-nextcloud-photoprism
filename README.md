@@ -90,6 +90,17 @@ This project showcases skills relevant for **DevOps, systems engineering, and se
 - SSL certificates can be added with Caddy or Nginx reverse proxy.
 - Volumes are persistent and can be backed up using `rsync` or `borg`.
 
+## 🧾 Data Integrity & Backup Strategy
+
+This setup uses the **Btrfs filesystem** for storing persistent volumes, leveraging its **native snapshotting capabilities** for reliable, atomic backups.
+
+- 📌 **Automated Snapshot Script:** A custom Bash script runs scheduled Btrfs snapshots, enabling quick rollbacks and versioned backup history.
+- 💥 Snapshots are space-efficient and fast, ensuring minimal downtime in case of misconfiguration or failure.
+- 🔁 The system supports remote syncing (e.g., via `rsync`, `btrbk`, or `borg`) for external backup drives or servers.
+
+> This strategy reflects best practices in high-availability environments, ensuring data safety even in self-hosted, low-resource setups.
+
+
 ---
 
 ## 📚 Inspiration
