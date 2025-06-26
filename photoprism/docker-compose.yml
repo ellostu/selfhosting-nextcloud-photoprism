@@ -1,5 +1,3 @@
-version: '3.8' # Pode remover esta linha se quiser, a warning não é crítica.
-
 services:
   photoprism:
     image: photoprism/photoprism:latest
@@ -8,24 +6,22 @@ services:
     ports:
       - "2342:2342"
     environment:
-      PHOTOPRISM_ADMIN_USER: ${PHOTOPRISM_ADMIN_USER} # Definido na sua .env
-      PHOTOPRISM_ADMIN_PASSWORD: ${PHOTOPRISM_ADMIN_PASSWORD} # Definido na sua .env
+      PHOTOPRISM_ADMIN_USER: ${PHOTOPRISM_ADMIN_USER} # Inside your .env
+      PHOTOPRISM_ADMIN_PASSWORD: ${PHOTOPRISM_ADMIN_PASSWORD} # Inside your .env
       PHOTOPRISM_DATABASE_DRIVER: mysql
       PHOTOPRISM_DATABASE_DSN: photoprism:${DB_PASSWORD}@tcp(database:3306)/photoprism?charset=utf8mb4&parseTime=true
       PHOTOPRISM_HTTP_COMPRESSION: "true"
-      PHOTOPRISM_DETECT_NSFW: "false"
       PHOTOPRISM_INDEX_SCHEDULE: "@every 10m" # <- index rate
-      # Se você também quiser o scan mais frequente, pode adicionar:
-      PHOTOPRISM_SCAN_INTERVAL: "600" # 600 segundos = 10 minutos
+      PHOTOPRISM_SCAN_INTERVAL: "600" 
 
     volumes:
       - ./storage:/photoprism/storage
-      - /home/syncthing_user/sync_data/celular_fotos/fotos:/photoprism/originals
+      - /your/photos/path:/photoprism/originals
     depends_on:
       - database
 
   database:
-    image: mariadb:10.5 # <--- ALtere esta linha de 10.6 para 10.5
+    image: mariadb:10.6
     container_name: photoprism_db
     restart: unless-stopped
     environment:
@@ -33,6 +29,6 @@ services:
       MYSQL_DATABASE: photoprism
       MYSQL_USER: photoprism
       MYSQL_PASSWORD: ${DB_PASSWORD}
-      MARIADB_AUTO_UPGRADE: "1" # Mantenha esta linha
+      MARIADB_AUTO_UPGRADE: "1" # Keep this line
     volumes:
       - ./database:/var/lib/mysql
