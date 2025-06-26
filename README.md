@@ -105,24 +105,19 @@ This project includes auxiliary scripts to address common challenges in managing
 
 ---
 
+---
+
 ## 🎯 What This Project Demonstrates
 
-This project is a comprehensive showcase of advanced self-hosting capabilities, highlighting not just technical implementation but also critical problem-solving skills vital in a professional environment.
+This project showcases a robust set of practical skills and expertise in cloud infrastructure and data management:
 
-* **Containerization and Orchestration (Docker & Docker Compose):** Demonstrates **expert proficiency** in deploying, configuring, and managing complex, multi-service containerized environments. This includes understanding inter-container communication and resource allocation for optimal performance.
+* **Containerization & Orchestration (Docker & Docker Compose):** Proficiently designed, configured, and managed complex, multi-service environments, ensuring efficient deployment and scalability.
+* **Linux System Administration:** Applied strong command-line and system management skills for file handling, permissions, robust volume mounting, and resource optimization on a Linux server.
+* **Self-Hosting & Open-Source Solutions:** Successfully planned, implemented, and maintained critical open-source applications (Nextcloud, PhotoPrism) for private cloud and media management, emphasizing user data control.
+* **Complex System Integration:** Seamlessly integrated disparate applications (Nextcloud and PhotoPrism) to share a single media dataset via host-level volume mounts, optimizing storage and workflow efficiency.
+* **Robust Data Management:** Demonstrated capability in handling and securing large volumes of media data efficiently, ensuring data integrity and accessibility across services.
+* **Security & Privacy Best Practices:** Implemented self-controlled infrastructure with a strong focus on data privacy and security, including the secure handling of sensitive credentials via environment variables.
+* **Advanced Problem-Solving & Scripting:**
+    * **Proactive Issue Resolution:** Identified and systematically resolved complex infrastructure challenges, including **database performance tuning for MariaDB** and **web server configuration intricacies with Nginx** (and potential experience with Caddy if applicable).
+    * **Data Integrity & Automation:** Developed and deployed custom shell scripts (e.g., `fix_image_extensions.sh`) utilizing tools like **ExifTool** to diagnose and programmatically correct real-world data issues such as inconsistent metadata and file extensions from third-party sources (e.g., Google Takeout). This highlights initiative in automating solutions for data quality.
 
-* **Linux System Administration & Infrastructure Management:** Shows **strong foundational skills** in Linux, covering file system management, intricate volume mounting (shared data volumes), user permissions, and resource optimization within a server environment.
-
-* **Complex System Integration & Data Workflow Optimization:** Expertise in **integrating disparate applications** (Nextcloud, PhotoPrism, MariaDB, Nginx/Caddy) to create a cohesive and efficient data workflow. This includes designing shared data access patterns to eliminate redundancy and improve performance.
-
-* **Database Management & Optimization:** Experience with **MariaDB/PostgreSQL administration**, focusing on reliable data persistence and configuration for high-performance applications like Nextcloud and PhotoPrism.
-
-* **Network and Web Server Configuration (Nginx/Caddy):** Hands-on experience with **reverse proxy setup**, including `nginx.conf` (or Caddyfile) configuration for secure external access, SSL/TLS management, and efficient request routing – addressing common challenges in web service exposure.
-
-* **Proactive Problem Solving & Scripting Automation:** **Proven ability to identify, diagnose, and resolve complex technical issues** independently. This is exemplified by the development of the `fix_image_extensions.sh` script, which tackles real-world data inconsistencies (e.g., Google Takeout metadata mismatches) that often impact third-party integrations. This highlights a proactive approach to maintaining data integrity and system reliability.
-
-* **Security & Privacy Best Practices:** Implementation of secure configurations, including the proper use of environment variables for sensitive data and designing a self-controlled infrastructure that prioritizes user data privacy.
-
-* **Adaptability & Troubleshooting:** Navigating challenges with various components (e.g., Nginx/Caddy configurations, database connectivity, data integrity issues) showcases adaptability and strong troubleshooting methodologies crucial for maintaining production-like systems.
-
----
