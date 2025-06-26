@@ -101,6 +101,7 @@ This project includes auxiliary scripts to address common challenges in managing
 * **`photoprism/fix_image_extensions.sh`**:
     * **Purpose:** To tackle real-world data challenges, I've included `fix_image_extensions.sh`. This script was developed to resolve issues with mismatched file extensions and metadata, a common hurdle when integrating photos from external sources like Google Takeout.
     * **Demonstrates:** Ability to diagnose and solve metadata/file format problems, and automation of data management tasks.
+    * **Adittional info:** You may need to change something according to the file types. Also, if you don`t have this kind of issue, feel free to not use this script at all or delete it.
 
 ---
 
