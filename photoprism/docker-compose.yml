@@ -1,0 +1,38 @@
+version: '3.8' # Pode remover esta linha se quiser, a warning não é crítica.
+
+services:
+  photoprism:
+    image: photoprism/photoprism:latest
+    container_name: photoprism
+    restart: unless-stopped
+    ports:
+      - "2342:2342"
+    environment:
+      PHOTOPRISM_ADMIN_USER: bern
+      PHOTOPRISM_ADMIN_PASSWORD: ${PHOTOPRISM_ADMIN_PASSWORD}
+      PHOTOPRISM_DATABASE_DRIVER: mysql
+      PHOTOPRISM_DATABASE_DSN: photoprism:${DB_PASSWORD}@tcp(database:3306)/photoprism?charset=utf8mb4&parseTime=true
+      PHOTOPRISM_HTTP_COMPRESSION: "true"
+      PHOTOPRISM_DETECT_NSFW: "false"
+      PHOTOPRISM_INDEX_SCHEDULE: "@every 10m" # <- Mude de "@every 1h" para isso
+      # Se você também quiser o scan mais frequente, pode adicionar:
+      PHOTOPRISM_SCAN_INTERVAL: "600" # 600 segundos = 10 minutos
+
+    volumes:
+      - ./storage:/photoprism/storage
+      - /home/syncthing_user/sync_data/celular_fotos/fotos:/photoprism/originals
+    depends_on:
+      - database
+
+  database:
+    image: mariadb:10.5 # <--- ALtere esta linha de 10.6 para 10.5
+    container_name: photoprism_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: photoprism
+      MYSQL_USER: photoprism
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MARIADB_AUTO_UPGRADE: "1" # Mantenha esta linha
+    volumes:
+      - ./database:/var/lib/mysql

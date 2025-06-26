@@ -1,0 +1,14 @@
+
+nextcloud/db/
+nextcloud/nextcloud_data/
+
+photoprism/database/
+photoprism/storage/
+
+photoprism/cache/
+photoprism/thumbs/
+
+photoprism/.env
+photoprism/docker-compose.yml.save
+
+/home/syncthing_user/sync_data/

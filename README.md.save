@@ -1,0 +1,30 @@
+# Solução de Auto-Hospedagem com Nextcloud e PhotoPrism (Docker Compose)
+ls
+Este projeto demonstra uma infraestrutura robusta de auto-hospedagem para gerenciamento de arquivos e fotos, orquestrada com Docker Compose. O foco está na integração eficiente entre o Nextcloud para armazenamento em nuvem e o PhotoPrism para organização de mídias, utilizando volumes compartilhados para otimizar o uso do espaço e garantir a integridade dos dados.
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+* **Docker & Docker Compose**: Conteinerização e orquestração de serviços para implantação e gerenciamento flexíveis.
+* **Nextcloud**: Plataforma de nuvem privada para sincronização de arquivos, colaboração e acesso remoto seguro.
+* **PhotoPrism**: Aplicação inteligente de gestão de fotos, que utiliza inteligência artificial para organização, busca e catalogação de mídias.
+* **MariaDB/PostgreSQL**: Bancos de dados relacionais utilizados para persistência de dados de ambas as aplicações (dependendo da sua configuração).
+* **Linux**: Sistema operacional base do servidor, onde a solução é implantada.
+* **Nginx** (via `nginx.conf`): Servidor web/proxy reverso para o Nextcloud, garantindo acesso seguro e eficiente (se aplicável à sua configuração).
+
+---
+
+## ✨ Funcionalidades Principais
+
+* **Gerenciamento Centralizado de Arquivos**: Sincronize e acesse seus arquivos de qualquer dispositivo com o Nextcloud.
+* **Organização Inteligente de Fotos**: O PhotoPrism indexa e organiza fotos e vídeos automaticamente, permitindo buscas avançadas e fácil navegação.
+* **Compartilhamento Otimizado de Dados**: Ambas as aplicações acessam a **mesma pasta de mídias** no sistema de arquivos do host, eliminando a duplicação de dados e otimizando o armazenamento.
+* **Ambiente Contêinerizado**: Facilita a implantação, portabilidade e isolamento dos serviços, garantindo um ambiente consistente.
+* **Controle Total dos Dados**: Mantenha a privacidade e o controle sobre seus arquivos, hospedando-os em sua própria infraestrutura.
+
+---
+
+## 📁 Estrutura do Projeto
+
+A estrutura do repositório reflete a organização dos serviços Docker Compose:
