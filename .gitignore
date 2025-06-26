@@ -12,3 +12,5 @@ photoprism/.env
 photoprism/docker-compose.yml.save
 
 /home/syncthing_user/sync_data/
+
+photoprism/fix_image_extensions.sh
