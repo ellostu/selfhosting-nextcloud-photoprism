@@ -134,7 +134,6 @@ This project showcases a robust set of practical skills and expertise in cloud i
 * **Automated HTTPS**: Integrate a Certbot container (e.g., with Nginx) for automatic TLS certificate management using Let's Encrypt.
 * **Centralized Logging**: Implement a logging solution (e.g., ELK stack or Grafana Loki) for consolidated log aggregation and analysis.
 * **Monitoring & Alerting**: Integrate Prometheus and Grafana to monitor container health, resource utilization, and application-specific metrics.
-* **Automated Backups**: Develop robust, scheduled backup routines for application data and databases.
 * **CI/CD Pipeline**: Automate deployment and updates of the Docker Compose services using a simple CI/CD pipeline (e.g., GitHub Actions).
 * **Advanced Networking**: Implement custom Docker bridge networks or explore overlay networks for multi-host deployments.
 * **Upgrade to Kubernetes**: (For highly ambitious candidates) Migrate the Docker Compose setup to a Kubernetes cluster to demonstrate orchestration at scale.
