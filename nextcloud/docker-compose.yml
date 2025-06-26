@@ -8,12 +8,12 @@ services:
       - ./db:/var/lib/mysql 
     environment:
       MYSQL_ROOT_PASSWORD: sua_senha_root_db_nextcloud
-      MYSQL_DATABASE: $(MYSQL_DATABASE)           # Nome do banco de dados do Nextcloud
-      MYSQL_USER: $(MYSQL_USER)             # Usuário do banco de dados do Nextcloud
+      MYSQL_DATABASE: $(MYSQL_DATABASE)
+      MYSQL_USER: $(MYSQL_USER)
       MYSQL_PASSWORD: $(MYSQL_PASSWORD)
 
   redis:
-    image: redis:alpine # Cache para performance do Nextcloud
+    image: redis:alpine
     container_name: nextcloud_redis
     restart: always
 
@@ -22,29 +22,29 @@ services:
     container_name: nextcloud_app
     restart: always
     volumes:
-      - ./nextcloud_data:/var/www/html # <-- Local onde os arquivos do Nextcloud serão armazenados (dados e instalação)
-      # Se você quiser que o PhotoPrism veja as fotos daqui, essa é a pasta que o PhotoPrism precisaria indexar.
+      - ./nextcloud_data:/var/www/html # <-- installation path
+      - /your/photos/path:/var/www/html/data/YOUR_USERNAME/files/Photos     
     environment:
-      MYSQL_HOST: db                    # Nome do serviço do banco de dados no Docker Compose
+      MYSQL_HOST: db
       MYSQL_DATABASE: $(MYSQL_DATABASE)
       MYSQL_USER: $(MYSQL_USER)
-      MYSQL_PASSWORD: $(MYSQL_PASSWORD)      # <-- USE A MESMA SENHA DO BANCO DE DADOS ACIMA!
-      REDIS_HOST: redis                 # Nome do serviço do Redis
-      PHP_MEMORY_LIMIT: 512M            # Aumentar para evitar problemas com arquivos grandes
-      # Você pode adicionar mais variáveis do Nextcloud aqui, se quiser
+      MYSQL_PASSWORD: $(MYSQL_PASSWORD)
+      REDIS_HOST: redis
+      PHP_MEMORY_LIMIT: 512M
+      
     depends_on:
       - db
       - redis
 
   web:
-    image: nginx:alpine # Servidor web Nginx para servir o Nextcloud
+    image: nginx:alpine 
     container_name: nextcloud_web
     restart: always
     ports:
-      - "8080:80" # <-- Porta para acessar o Nextcloud no seu Debian (via IP Tailscale)
-                  # Escolhi 8080 para evitar conflito com portas comuns.
+      - "8080:80" 
+                  
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/nextcloud.conf:ro # Configuração do Nginx (ver próximo passo!)
-      - ./nextcloud_data:/var/www/html:ro               # Mapeia a pasta do Nextcloud para o Nginx (somente leitura)
+      - ./nginx.conf:/etc/nginx/conf.d/nextcloud.conf:ro
+      - ./nextcloud_data:/var/www/html:ro
     depends_on:
       - app
