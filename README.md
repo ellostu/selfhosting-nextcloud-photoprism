@@ -58,21 +58,21 @@ To configure and start the solution, follow the steps below. Ensure Docker and D
     *Adjust variable names and values according to your actual configuration and the requirements of your `docker-compose.yml` files.*
 
 3.  **Shared Volume Configuration:**
-    In your `docker-compose.yml` files, ensure that the folder where your actual photos are stored (`/home/syncthing_user/sync_data/celular_fotos/fotos/ALL_PHOTOS` in your case) is mounted as a volume in **both** the Nextcloud and PhotoPrism services.
+    In your `docker-compose.yml` files, ensure that the folder where your actual photos are stored is mounted as a volume in **both** the Nextcloud and PhotoPrism services.
 
     **Example in `photoprism/docker-compose.yml` (within the `volumes` section of the `photoprism` service):**
     ```yaml
     volumes:
-      - /home/syncthing_user/sync_data/celular_fotos/fotos/ALL_PHOTOS:/photoprism/originals # Path to your photos
+      - /your/photos/path:/photoprism/originals # Path to your photos
       # ... other PhotoPrism volumes
     ```
 
     **Example in `nextcloud/docker-compose.yml` (within the `volumes` section of the `app` or `nextcloud` service):**
     ```yaml
     volumes:
-      - /home/syncthing_user/sync_data/celular_fotos/fotos/ALL_PHOTOS:/var/www/html/data/YOUR_USERNAME/files/Photos # Example mounting for a specific user
+      - /your/photos/path:/var/www/html/data/YOUR_USERNAME/files/Photos # Example mounting for a specific user
       # OR, if mapping the folder directly to Nextcloud's data:
-      # - /home/syncthing_user/sync_data/celular_fotos/fotos/ALL_PHOTOS:/var/www/html/data/user/files/Photos
+      # - /your/photos/path:/var/www/html/data/user/files/Photos
       # ... other Nextcloud volumes
     ```
     *Adjust the path `/var/www/html/data/YOUR_USERNAME/files/Photos` to reflect how you've configured Nextcloud to access this folder. It might differ depending on your version or "External Storages" configuration.*
@@ -82,9 +82,9 @@ To configure and start the solution, follow the steps below. Ensure Docker and D
 
     ```bash
     cd photoprism
-    docker compose up -d --build # Use --build if you made Dockerfile changes or --force-recreate to recreate containers
+    docker compose up --build --pull always --wait
     cd ../nextcloud
-    docker compose up -d --build
+    docker compose up --build --pull always --waitd
     ```
 
 5.  **Post-Installation Configuration:**
