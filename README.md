@@ -39,7 +39,7 @@ This section details the steps to set up and run the solution. Ensure Docker and
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/ellostu/selfhosting-nextcloud-photoprism.git](https://github.com/ellostu/selfhosting-nextcloud-photoprism.git)
+    git clone https://github.com/ellostu/selfhosting-nextcloud-photoprism.git
     cd selfhosting-nextcloud-photoprism
     ```
 
