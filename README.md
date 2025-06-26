@@ -107,12 +107,24 @@ This project includes auxiliary scripts to address common challenges in managing
 
 ## 🎯 What This Project Demonstrates
 
-This project highlights the following skills and knowledge:
+This project highlights a comprehensive set of technical skills and a proactive approach to problem-solving in a self-hosted environment:
 
-* **Containerization and Orchestration (Docker & Docker Compose)**: Proficiency in creating, configuring, and managing complex, multi-service environments.
-* **Linux System Administration**: Experience with file management, permissions, volume mounting, and resource optimization in a Linux environment.
-* **Self-Hosting Solutions**: Ability to plan, implement, and maintain open-source applications for personal or small business infrastructure needs.
-* **System Integration**: Skill in connecting different applications (Nextcloud and PhotoPrism) to share data and optimize workflows.
-* **Data Management**: Knowledge of handling large volumes of media data efficiently and securely.
-* **Security and Privacy**: Focus on personal data security through self-controlled infrastructure and proper use of environment variables.
-* **Problem Solving & Scripting**: Demonstrated capability to diagnose and create programmatic solutions (shell scripting, `ExifTool`) for real-world data issues (e.g., inconsistent metadata/file extensions).
+* **Containerization & Orchestration (Docker & Docker Compose):**
+    Proficiently designed, configured, and managed complex, multi-service environments, encompassing database, application, and web server containers. This included optimizing resource allocation and ensuring seamless inter-container communication.
+
+* **Linux System Administration:**
+    Demonstrated expertise in file management, permissions (e.g., handling `www-data` ownership for Nextcloud), volume mounting, and resource optimization within a Debian Linux server environment.
+
+* **Self-Hosting & Open-Source Solutions:**
+    Applied strong planning and implementation skills to deploy and maintain robust open-source applications (Nextcloud, PhotoPrism) for personal infrastructure needs, focusing on scalability and reliability.
+
+* **System Integration & Data Management:**
+    Successfully integrated disparate applications (Nextcloud and PhotoPrism) to share and manage large volumes of media data efficiently via shared host volumes, eliminating data duplication and streamlining workflows.
+
+* **Troubleshooting & Proactive Problem Solving:**
+    * **Web Server Configuration:** Overcame initial challenges with **Nginx (or Caddy, if applicable)** proxy configurations, ensuring secure and efficient web access to Nextcloud.
+    * **Database Management:** Addressed specific database (MariaDB/PostgreSQL) configuration nuances to optimize performance and stability for both Nextcloud and PhotoPrism.
+    * **Data Integrity & Metadata:** Proactively identified and resolved critical data integrity issues related to inconsistent file extensions and metadata (e.g., from Google Takeout exports), demonstrating a keen eye for detail and the ability to implement custom solutions (`fix_image_extensions.sh` leveraging ExifTool) to ensure accurate media indexing and display.
+
+* **Security & Privacy:**
+    Implemented best practices for personal data security by maintaining full control over the infrastructure and responsibly managing sensitive information through environment variables.
