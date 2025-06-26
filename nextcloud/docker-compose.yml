@@ -2,17 +2,17 @@ version: '3'
 
 services:
   db:
-    image: mariadb:10.6 # Banco de dados do Nextcloud
+    image: mariadb:10.6 
     container_name: nextcloud_db
     restart: always
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW # Opcional, recomendado pelo Nextcloud
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     volumes:
       - ./db:/var/lib/mysql # Persistir dados do banco de dados
     environment:
-      MYSQL_ROOT_PASSWORD: -p9MdoU62~ # <-- MUDE AQUI! Senha ROOT para o banco de dados (FORTE!)
+      MYSQL_ROOT_PASSWORD: sua_senha_root_db_nextcloud
       MYSQL_DATABASE: nextcloud_db           # Nome do banco de dados do Nextcloud
       MYSQL_USER: nextcloud_user             # Usuário do banco de dados do Nextcloud
-      MYSQL_PASSWORD: -p9MdoU62~           # <-- MUDE AQUI! Senha para o usuário do banco de dados (FORTE!)
+      MYSQL_PASSWORD: sua_senha_nextcloud_db
 
   redis:
     image: redis:alpine # Cache para performance do Nextcloud
