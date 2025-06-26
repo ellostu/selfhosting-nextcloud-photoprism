@@ -114,6 +114,8 @@ This project demonstrates:
 
 ## 📸 Preview (Optional)
 
+![image](https://github.com/user-attachments/assets/27d50972-b2c9-4b1f-9eb8-3bf56147ca6b)
+
 > Add screenshots here of the dashboard, folders, Photoprism interface, or Tailscale dashboard to make it visual.
 
 ---
